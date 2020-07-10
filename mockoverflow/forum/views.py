@@ -26,12 +26,49 @@ class PostListView(ListView):
     template_name = 'forum/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 3
+    paginate_by = 5
+
+
+class FilteredPostListView(ListView):
+    model = Post
+    template_name = 'forum/home.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+    def get_queryset(self):
+    	tag = self.kwargs['tag']
+    	context = Post.objects.filter(tags__iexact=tag)
+    	return context
+
+    # def get_context_data(self, **kwargs):
+    # 	context = super().get_context_data(**kwargs)
+    # 	context['tag'] = self.request.GET.get('tag', None)
+    # 	return context
+
+
+class PostSolvedView(DetailView):
+	model = Post
+	template_name = 'forum/post_detail.html'
+	
+	def form_valid(self, form):
+		post = self.get_object()
+		post.solved = True
+		return super().form_valid(form)
 
 
 class PostDetailView(DetailView):
 	model = Post
 	template_name = 'forum/post_detail.html'
+
+	# def form_valid(self, form):
+	# 	post = self.get_object()
+	# 	post.solved = True
+	# 	return redirect('post-detail', pk=post.pk)
+	def form_valid(self, form):
+		post = self.get_object()
+		post.solved = True
+		return super().form_valid(form)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
