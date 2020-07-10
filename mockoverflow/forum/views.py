@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from .models import Post
 from .forms import CommentForm
 from django.views.generic import (
@@ -28,6 +29,9 @@ class PostListView(ListView):
     ordering = ['-date_posted']
     paginate_by = 5
 
+    def get_absolute_url(self):
+    	return reverse('filtered-home', kwargs={'tags': self.tags})
+
 
 class FilteredPostListView(ListView):
     model = Post
@@ -37,14 +41,13 @@ class FilteredPostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-    	tag = self.kwargs['tag']
-    	context = Post.objects.filter(tags__iexact=tag)
-    	return context
+    	tags = self.request.GET['tags']
+    	return Post.objects.filter(tags__name__in=[tags])
 
     # def get_context_data(self, **kwargs):
-    # 	context = super().get_context_data(**kwargs)
-    # 	context['tag'] = self.request.GET.get('tag', None)
-    # 	return context
+    #     context = super().get_context_data(**kwargs)
+    #     context['tags'] = self.tags
+    #     return context
 
 
 class PostSolvedView(DetailView):
