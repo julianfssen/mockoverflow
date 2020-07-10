@@ -22,11 +22,11 @@ def home(request):
 
 
 class PostListView(ListView):
-	model = Post
-	template_name = 'forum/home.html'
-	context_object_name = 'posts'
-	ordering = ['-date_posted']
-	paginate_by = 5
+    model = Post
+    template_name = 'forum/home.html'
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 3
 
 
 class PostDetailView(DetailView):
@@ -74,7 +74,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 @login_required
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    paginate_by = 5
 
     if request.method == "POST":
         form = CommentForm(request.POST)

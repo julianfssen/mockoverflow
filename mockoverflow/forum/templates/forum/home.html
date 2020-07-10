@@ -6,7 +6,6 @@
 	        <div class="article-metadata">
 	          <a class="mr-2" href="#">{{ post.author }}</a>
 	          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-	          <small class="ml-2 badge badge-info">{{ post.tags.first }}</small>
 	        </div>
 	        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
 	        <p class="article-content">{{ post.content }}</p>
@@ -14,8 +13,8 @@
 	      </div>
 	    </article>
 	{% endfor %}
-
 	{% if is_paginated %}
+
 	  {% if page_obj.has_previous %}
 	    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
 	    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
@@ -33,5 +32,6 @@
 	    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
 	    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
 	  {% endif %}
+
 	{% endif %}
 {% endblock content %}

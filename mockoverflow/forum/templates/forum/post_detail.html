@@ -5,22 +5,23 @@
 	    <div class="article-metadata">
 	      <a class="mr-2" href="#">{{ object.author }}</a>
 	      <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
-	      <small class="ml-2 badge badge-info">{{ object.tags.first }}</small>
-	      {% if object.author == user %}
-		      <a class="ml-5 btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update Post</a>
-		      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete Post</a>
-	      {% endif %}
+	      <a class="ml-2 badge badge-info" href="#">{{ object.tags.first }}</a>
 	    </div>
 	    <h2 class="article-title">{{ object.title }}</h2>
 	    <p class="article-content">{{ object.content }}</p>
+        <div>
+            {% if object.author == user %}
+      	      <a class="btn btn-info btn-sm mt-1 mb-1 pull-right" href="{% url 'post-update' object.id %}">Update Post</a>
+      	      <a class="btn btn-danger btn-sm mt-1 mb-1 pull-right" href="{% url 'post-delete' object.id %}">Delete Post</a>
+            {% endif %}
+    	</div>
 	  </div>
 	</article>
-
 	<hr>
-	<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Reply</a>
+	<a class="btn btn-primary" href="{% url 'add_comment_to_post' pk=post.pk %}">Reply</a>
 	{% for comment in post.comments.all %}
-	    <div class="comment">
-	        <div class="date">{{ comment.created_date }}</div>
+    	<div class="comment">
+	        <div class="date text-muted">{{ comment.date_posted }}</div>
 	        <strong>{{ comment.author }}</strong>
 	        <p>{{ comment.content|linebreaks }}</p>
 	    </div>
