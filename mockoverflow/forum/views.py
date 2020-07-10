@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import CommentForm
 from django.views.generic import (
@@ -74,12 +74,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 @login_required
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    paginate_by = 5
+
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
+            comment.author = request.user
             comment.save()
+            # return redirect('post-detail', pk=post.pk)
             return redirect('post-detail', pk=post.pk)
     else:
         form = CommentForm()

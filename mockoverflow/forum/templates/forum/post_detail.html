@@ -22,7 +22,7 @@
 	    <div class="comment">
 	        <div class="date">{{ comment.created_date }}</div>
 	        <strong>{{ comment.author }}</strong>
-	        <p>{{ comment.text|linebreaks }}</p>
+	        <p>{{ comment.content|linebreaks }}</p>
 	    </div>
 	{% empty %}
 	    <p>No comments here yet :(</p>
