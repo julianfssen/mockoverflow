@@ -12,9 +12,9 @@ def register(request):
 			username = form.cleaned_data.get('username')
 			messages.success(request, f'Your account has been created! Log in to now start asking questions')
 			return redirect('login')
-		else:
-			form = UserRegisterForm()
-		return render(request, 'users/register.html', {'form': form})
+	else:
+		form = UserRegisterForm()
+	return render(request, 'users/register.html', {'form': form})
 
 
 @login_required
@@ -30,7 +30,7 @@ def profile(request):
 		user_form = UserUpdateForm(instance = request.user)
 
 	context = {
-		'user_form' = user_form,
+		'user_form': user_form,
 	}
 
 	return render(request, 'users/profile.html', context)

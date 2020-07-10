@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.views.generic import (
-	Listview,
+	ListView,
 	DetailView,
 	CreateView,
 	UpdateView,
