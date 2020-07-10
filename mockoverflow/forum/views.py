@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
+from .forms import CommentForm
 from django.views.generic import (
 	ListView,
 	DetailView,
@@ -9,6 +10,7 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -34,7 +36,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
 	model = Post
-	fields = ['title', 'content']
+	fields = ['title', 'content', 'tags']
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -43,7 +45,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Post
-	field = ['title', 'content']
+	field = ['title', 'content', 'tags']
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -67,3 +69,18 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 		if self.request.user == post.author:
 			return True
 		return False
+
+
+@login_required
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'forum/add_comment_to_post.html', {'form': form})

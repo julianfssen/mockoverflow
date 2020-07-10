@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'forum.apps.ForumConfig',
+    'taggit',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
