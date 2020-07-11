@@ -21,8 +21,8 @@ Go to https://mockoverflow.herokuapp.com/ to use the app.
 
 Use the test account to try out the features:
 
-Email: herokutest@gmail.com
-Password: testing321
+*Email:* herokutest@gmail.com
+*Password:* testing321
 
 If the account does not work, register for a new account and you'll be able to use the app nornmally.
 
