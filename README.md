@@ -16,6 +16,9 @@ pip install django-crispy-forms
 
 ## Installation
 
+Before installing, make sure:
+
+* All dependencies are installed
 * Django is installed
 * Python virtual environment (venv) is installed
 
