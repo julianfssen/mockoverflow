@@ -4,6 +4,16 @@ Mock Overflow is a Stack Overflow-like forum for users to ask and answer questio
 
 # Prerequisites:
 
+## Dependencies
+
+This app requires the Pillow, django-taggit, and <a href="https://django-crispy-forms.readthedocs.io/en/latest/install.html">django-crispy-forms</a> external libraries to run. You should install them by the running the commmands below:
+
+~~~
+pip install django-taggit
+pip install Pillow
+pip install django-crispy-forms
+~~~
+
 ## Installation
 
 * Django is installed
