@@ -51,5 +51,5 @@ Please make sure to update tests as appropriate.
 ## License
 Released under MIT License
 
-##Author
-Julian Foo Siang Sen (julianfssen@gmail.com)
+## Author
+<strong>Julian Foo Siang Sen</strong> (julianfssen@gmail.com)
